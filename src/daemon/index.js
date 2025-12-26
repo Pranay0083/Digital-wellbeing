@@ -3,11 +3,12 @@
  * macOS only (v1)
  */
 
-const { getActiveApp } = require('./tracker/activeApp');
-const { getActiveTabURL } = require('./tracker/activeTab');
-const { isUserIdle } = require('./tracker/idleDetector');
-const limits = require('./rules/limits');
-const db = require('./storage/sqlite');
+const { getActiveApp } = require("./tracker/activeApp");
+const { getActiveTabURL } = require("./tracker/activeTab");
+const { isUserIdle } = require("./tracker/idleDetector");
+const limits = require("./rules/limits");
+const blocker = require("./blocking/softBlock");
+const db = require("./storage/sqlite");
 
 const POLL_INTERVAL_MS = 1000; // 1 second
 
@@ -57,9 +58,8 @@ async function tick() {
 
     // 6️⃣ Start new session
     startNewSession(domain, app.browser);
-
   } catch (err) {
-    console.error('[Daemon Tick Error]', err.message);
+    console.error("[Daemon Tick Error]", err.message);
   }
 }
 
@@ -67,18 +67,24 @@ function startNewSession(domain, browser) {
   currentSession = {
     domain,
     browser,
-    startTime: new Date()
+    startTime: new Date(),
   };
 
   console.log(`[START] ${domain}`);
+
+  // 🔒 Enforce soft block if already exceeded
+  if (limits.isLimitReached(domain)) {
+    console.log(`[BLOCKED] ${domain} (limit exceeded)`);
+    blocker.closeActiveTab(browser);
+    currentSession = null;
+  }
 }
 
 function endCurrentSession() {
   if (!currentSession) return;
 
   const endTime = new Date();
-  const durationSec =
-    Math.floor((endTime - currentSession.startTime) / 1000);
+  const durationSec = Math.floor((endTime - currentSession.startTime) / 1000);
 
   if (durationSec > 0) {
     db.insertSession({
@@ -86,35 +92,31 @@ function endCurrentSession() {
       browser: currentSession.browser,
       startTime: currentSession.startTime,
       endTime,
-      durationSec
+      durationSec,
     });
 
-    console.log(
-      `[END] ${currentSession.domain} - ${durationSec}s`
-    );
+    console.log(`[END] ${currentSession.domain} - ${durationSec}s`);
 
     // 🔒 Check time limit
     if (limits.isLimitReached(currentSession.domain)) {
-      console.log(
-        `[LIMIT REACHED] ${currentSession.domain}`
-      );
+      console.log(`[LIMIT REACHED] ${currentSession.domain}`);
+      blocker.closeActiveTab(currentSession.browser);
     }
   }
 
   currentSession = null;
 }
 
-
 function extractDomain(url) {
   try {
     const { hostname } = new URL(url);
-    return hostname.replace(/^www\./, '');
+    return hostname.replace(/^www\./, "");
   } catch {
     return null;
   }
 }
 
 // 🔁 Start daemon loop
-console.log('DigitalWell daemon started');
+console.log("DigitalWell daemon started");
 
 setInterval(tick, POLL_INTERVAL_MS);
