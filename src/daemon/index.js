@@ -6,8 +6,10 @@
 const { getActiveApp } = require("./tracker/activeApp");
 const { getActiveTabURL } = require("./tracker/activeTab");
 const { isUserIdle } = require("./tracker/idleDetector");
+
 const limits = require("./rules/limits");
 const blocker = require("./blocking/softBlock");
+const warnings = require("./notifications/warnings");
 const db = require("./storage/sqlite");
 
 const POLL_INTERVAL_MS = 1000; // 1 second
@@ -16,8 +18,8 @@ let currentSession = null;
 /**
  * currentSession = {
  *   domain: 'youtube.com',
- *   startTime: Date,
- *   browser: 'chrome'
+ *   browser: 'chrome',
+ *   startTime: Date
  * }
  */
 
@@ -32,7 +34,6 @@ async function tick() {
 
     // 2️⃣ Get foreground application
     const app = await getActiveApp();
-
     if (!app || !app.isBrowser) {
       endCurrentSession();
       return;
@@ -40,15 +41,21 @@ async function tick() {
 
     // 3️⃣ Get active tab URL
     const url = await getActiveTabURL(app.browser);
-
     if (!url) {
       endCurrentSession();
       return;
     }
 
     const domain = extractDomain(url);
+    if (!domain) {
+      endCurrentSession();
+      return;
+    }
 
-    // 4️⃣ If same domain → continue session
+    // ⚠️ WARNING CHECK (NEW)
+    warnings.checkAndWarn(domain);
+
+    // 4️⃣ Same domain → continue session
     if (currentSession && currentSession.domain === domain) {
       return;
     }
@@ -58,6 +65,7 @@ async function tick() {
 
     // 6️⃣ Start new session
     startNewSession(domain, app.browser);
+
   } catch (err) {
     console.error("[Daemon Tick Error]", err.message);
   }
@@ -72,7 +80,7 @@ function startNewSession(domain, browser) {
 
   console.log(`[START] ${domain}`);
 
-  // 🔒 Enforce soft block if already exceeded
+  // 🔒 Enforce soft block immediately if already exceeded
   if (limits.isLimitReached(domain)) {
     console.log(`[BLOCKED] ${domain} (limit exceeded)`);
     blocker.closeActiveTab(browser);
@@ -84,7 +92,9 @@ function endCurrentSession() {
   if (!currentSession) return;
 
   const endTime = new Date();
-  const durationSec = Math.floor((endTime - currentSession.startTime) / 1000);
+  const durationSec = Math.floor(
+    (endTime - currentSession.startTime) / 1000
+  );
 
   if (durationSec > 0) {
     db.insertSession({
@@ -95,17 +105,25 @@ function endCurrentSession() {
       durationSec,
     });
 
-    console.log(`[END] ${currentSession.domain} - ${durationSec}s`);
+    console.log(
+      `[END] ${currentSession.domain} - ${durationSec}s`
+    );
 
-    // 🔒 Check time limit
+    // ⚠️ CHECK WARNINGS ON SESSION END (NEW)
+    warnings.checkAndWarn(currentSession.domain);
+
+    // 🔒 Final limit check
     if (limits.isLimitReached(currentSession.domain)) {
-      console.log(`[LIMIT REACHED] ${currentSession.domain}`);
+      console.log(
+        `[LIMIT REACHED] ${currentSession.domain}`
+      );
       blocker.closeActiveTab(currentSession.browser);
     }
   }
 
   currentSession = null;
 }
+
 
 function extractDomain(url) {
   try {
@@ -118,5 +136,4 @@ function extractDomain(url) {
 
 // 🔁 Start daemon loop
 console.log("DigitalWell daemon started");
-
 setInterval(tick, POLL_INTERVAL_MS);
