@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Wellbeing — Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="settings.css" />
+</head>
+
+<body>
+
+    <div class="page-wrap">
+        <header class="page-header">
+            <div class="header-brand">
+                <span>🌿</span>
+                <span class="brand-name">Digital Wellbeing — Settings</span>
+            </div>
+            <a href="javascript:void(0)" class="btn-link" id="btn-open-dashboard">Open Dashboard →</a>
+        </header>
+
+        <!-- Daily Limits -->
+        <section class="card">
+            <div class="card-header">
+                <h2>⏰ Daily Limits</h2>
+                <p class="card-desc">Set a daily time limit for any tracked site. You'll get a notification when you
+                    exceed it.</p>
+            </div>
+
+            <div class="add-limit-row">
+                <input class="input" type="text" id="limit-domain" placeholder="domain.com" />
+                <input class="input input-narrow" type="number" id="limit-hours" placeholder="h" min="0" max="23" />
+                <span class="sep">h</span>
+                <input class="input input-narrow" type="number" id="limit-minutes" placeholder="m" min="0" max="59" />
+                <span class="sep">m</span>
+                <button class="btn-primary" id="btn-add-limit">Add Limit</button>
+            </div>
+            <p class="hint" id="limit-hint"></p>
+
+            <div id="limits-list">
+                <div class="empty-row" id="limits-empty">No limits set yet.</div>
+            </div>
+        </section>
+
+        <!-- Ignored Sites -->
+        <section class="card">
+            <div class="card-header">
+                <h2>🚫 Ignored Sites</h2>
+                <p class="card-desc">These domains will never be tracked. Internal Chrome pages are ignored by default.
+                </p>
+            </div>
+
+            <div class="add-limit-row">
+                <input class="input" type="text" id="ignore-domain" placeholder="domain.com" />
+                <button class="btn-primary" id="btn-add-ignore">Add</button>
+            </div>
+            <p class="hint" id="ignore-hint"></p>
+
+            <div id="ignored-list">
+                <div class="empty-row" id="ignored-empty">No custom ignored sites.</div>
+            </div>
+        </section>
+
+        <!-- Data Management -->
+        <section class="card">
+            <div class="card-header">
+                <h2>📦 Data</h2>
+                <p class="card-desc">Your data is stored locally on your device and never sent anywhere.</p>
+            </div>
+            <div class="data-actions">
+                <button class="btn-secondary" id="btn-export">Export as JSON</button>
+                <button class="btn-danger" id="btn-clear">Clear all data</button>
+            </div>
+            <p class="hint" id="data-hint"></p>
+        </section>
+    </div>
+
+    <script src="settings.js" type="module"></script>
+</body>
+
+</html>

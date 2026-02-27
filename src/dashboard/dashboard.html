@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Wellbeing — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="dashboard.css" />
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <span class="brand-icon">🌿</span>
+            <span class="brand-name">Digital Wellbeing</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-view="overview">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                </svg>
+                Overview
+            </a>
+            <a href="#" class="nav-item" data-view="sites">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+                Sites
+            </a>
+            <a href="#" class="nav-item" data-view="trends">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+                Trends
+            </a>
+            <a href="javascript:void(0)" class="nav-item" id="nav-settings">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+                Settings
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+        <!-- ── Overview view ─── -->
+        <div class="view active" id="view-overview">
+            <div class="view-header">
+                <h1 class="view-title">Overview</h1>
+                <p class="view-subtitle" id="today-date"></p>
+            </div>
+
+            <!-- Summary KPI cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon">⏱️</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-today">–</div>
+                        <div class="kpi-label">Screen time today</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📅</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-week">–</div>
+                        <div class="kpi-label">This week total</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">🏆</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-top-site">–</div>
+                        <div class="kpi-label">Most visited today</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📈</div>
+                    <div>
+                        <div class="kpi-value" id="kpi-avg">–</div>
+                        <div class="kpi-label">Daily average (7 days)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Weekly chart -->
+            <div class="card">
+                <div class="card-title">7-Day Activity</div>
+                <canvas id="canvas-overview-week" height="180"></canvas>
+            </div>
+
+            <!-- Today breakdown -->
+            <div class="card">
+                <div class="card-title">Today's Sites</div>
+                <div id="today-table-wrap">
+                    <table class="site-table" id="today-table">
+                        <thead>
+                            <tr>
+                                <th>Site</th>
+                                <th>Time today</th>
+                                <th>% of day</th>
+                                <th>Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="today-table-body"></tbody>
+                    </table>
+                    <div class="empty-state" id="empty-overview">
+                        <span>🌱</span>
+                        <p>No browsing tracked today. Start browsing to see your activity here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Sites view ─── -->
+        <div class="view" id="view-sites">
+            <div class="view-header">
+                <h1 class="view-title">All Sites</h1>
+                <p class="view-subtitle">Weekly aggregated usage</p>
+            </div>
+            <div class="card">
+                <div class="card-controls">
+                    <input class="search-input" type="text" id="sites-search" placeholder="Search sites…" />
+                </div>
+                <table class="site-table" id="sites-table">
+                    <thead>
+                        <tr>
+                            <th>Site</th>
+                            <th class="sortable active" data-col="week">This week ▼</th>
+                            <th class="sortable" data-col="today">Today</th>
+                            <th>Daily avg</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sites-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ── Trends view ─── -->
+        <div class="view" id="view-trends">
+            <div class="view-header">
+                <h1 class="view-title">Trends</h1>
+                <p class="view-subtitle">Select a site to see its 7-day trend</p>
+            </div>
+            <div class="card">
+                <select class="select-input" id="trends-site-select">
+                    <option value="">— Select a site —</option>
+                </select>
+            </div>
+            <div class="card" id="trends-chart-card" style="display:none">
+                <div class="card-title" id="trends-chart-title">Activity</div>
+                <canvas id="canvas-trends" height="200"></canvas>
+                <div class="trends-stats" id="trends-stats"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="dashboard.js" type="module"></script>
+</body>
+
+</html>

@@ -1,25 +1,5 @@
 {
-  "name": "digital-wellbeing",
-  "version": "1.0.0",
-  "description": "---",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Pranay0083/Digital-wellbeing.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Pranay0083/Digital-wellbeing/issues"
-  },
-  "homepage": "https://github.com/Pranay0083/Digital-wellbeing#readme",
   "dependencies": {
-    "better-sqlite3": "^12.5.0"
-  },
-  "bin": {
-    "dw": "./bin/dw"
+    "canvas": "^3.2.1"
   }
 }

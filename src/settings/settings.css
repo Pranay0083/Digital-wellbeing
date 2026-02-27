@@ -1,0 +1,208 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --accent: #7c4dff;
+  --accent-light: #a78bfa;
+  --accent-glow: rgba(124,77,255,0.15);
+  --bg: #080716;
+  --card: #13112a;
+  --border: rgba(255,255,255,0.07);
+  --text: #e8e0ff;
+  --text-muted: #7a6f9a;
+  --text-dimmed: #3e3660;
+  --danger: #ff5252;
+  --danger-bg: rgba(255,82,82,0.1);
+  --radius: 14px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* Header */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.brand-name { font-size: 16px; }
+
+.btn-link {
+  font-size: 13px;
+  color: var(--accent-light);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.btn-link:hover { color: #fff; }
+
+/* Card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.card-header { margin-bottom: 16px; }
+.card-header h2 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.card-desc { font-size: 13px; color: var(--text-muted); }
+
+/* Inputs */
+.add-limit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 12px;
+  outline: none;
+  flex: 1;
+  min-width: 120px;
+  transition: border-color 0.15s;
+}
+
+.input:focus { border-color: var(--accent); }
+.input-narrow { flex: 0; width: 60px; min-width: 60px; text-align: center; }
+
+.sep { font-size: 13px; color: var(--text-muted); }
+
+/* Buttons */
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn-primary:hover { background: #6a3de8; }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-secondary {
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+.btn-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid rgba(255,82,82,0.2);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-danger:hover { background: rgba(255,82,82,0.18); }
+
+.data-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Hint */
+.hint {
+  font-size: 12px;
+  min-height: 18px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.hint.error { color: #ff6b6b; }
+.hint.success { color: #69d1a8; }
+
+/* List items */
+.limit-item, .ignore-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.limit-item:last-child, .ignore-item:last-child { border-bottom: none; }
+
+.item-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.item-name img { width: 14px; height: 14px; border-radius: 2px; }
+
+.item-badge {
+  font-size: 12px;
+  background: var(--accent-glow);
+  color: var(--accent-light);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-weight: 600;
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: var(--text-dimmed);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  line-height: 1;
+}
+
+.btn-remove:hover { color: var(--danger); background: var(--danger-bg); }
+
+.empty-row { font-size: 13px; color: var(--text-dimmed); padding: 12px 6px; }

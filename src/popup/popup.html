@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Wellbeing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-brand">
+      <span class="brand-icon">🌿</span>
+      <span class="brand-name">Digital Wellbeing</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn" id="btn-dashboard" title="Open Dashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-settings" title="Settings">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Tab bar -->
+  <nav class="tabs">
+    <button class="tab active" data-tab="today">Today</button>
+    <button class="tab" data-tab="week">This Week</button>
+  </nav>
+
+  <!-- Today tab -->
+  <section class="tab-panel active" id="panel-today">
+    <div class="summary-row">
+      <div class="summary-card">
+        <span class="summary-value" id="total-today">–</span>
+        <span class="summary-label">Total today</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-value" id="top-site-today">–</span>
+        <span class="summary-label">Most visited</span>
+      </div>
+    </div>
+
+    <div class="section-title">Top sites today</div>
+    <div class="canvas-wrap">
+      <canvas id="canvas-today" width="356" height="220"></canvas>
+    </div>
+    <div class="empty-state" id="empty-today">
+      <span class="empty-icon">🌱</span>
+      <p>No activity tracked yet today.</p>
+    </div>
+  </section>
+
+  <!-- Week tab -->
+  <section class="tab-panel" id="panel-week">
+    <div class="summary-row">
+      <div class="summary-card">
+        <span class="summary-value" id="total-week">–</span>
+        <span class="summary-label">Total this week</span>
+      </div>
+      <div class="summary-card">
+        <span class="summary-value" id="daily-avg">–</span>
+        <span class="summary-label">Daily average</span>
+      </div>
+    </div>
+
+    <div class="section-title">Daily breakdown</div>
+    <div class="canvas-wrap">
+      <canvas id="canvas-week" width="356" height="180"></canvas>
+    </div>
+
+    <div class="section-title" style="margin-top:12px">Top sites this week</div>
+    <div class="canvas-wrap">
+      <canvas id="canvas-week-sites" width="356" height="180"></canvas>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="popup-footer">
+    <button class="footer-link" id="btn-full-dashboard">View full dashboard →</button>
+  </footer>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

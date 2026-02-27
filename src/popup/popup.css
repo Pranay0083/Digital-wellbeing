@@ -1,0 +1,203 @@
+/* ── Reset & Base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --accent: #7c4dff;
+  --accent-light: #a78bfa;
+  --accent-glow: rgba(124, 77, 255, 0.25);
+  --bg: #0d0b1e;
+  --surface: #16132e;
+  --surface2: #1e1a3a;
+  --border: rgba(255,255,255,0.07);
+  --text: #e4dcff;
+  --text-muted: #7a6f9a;
+  --text-dimmed: #4a4268;
+  --radius: 12px;
+}
+
+body {
+  width: 380px;
+  min-height: 520px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon { font-size: 18px; }
+
+.brand-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.2px;
+}
+
+.header-actions { display: flex; gap: 4px; }
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.icon-btn svg { width: 16px; height: 16px; }
+
+.icon-btn:hover {
+  background: rgba(255,255,255,0.07);
+  color: var(--accent-light);
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0 16px;
+}
+
+.tab {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 12px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px 2px 0 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.tab.active { color: var(--accent-light); }
+.tab.active::after { opacity: 1; }
+.tab:hover { color: var(--text); }
+
+/* ── Tab panels ──────────────────────────────────────────────────────────── */
+.tab-panel { display: none; padding: 14px 16px; }
+.tab-panel.active { display: block; }
+
+/* ── Summary cards ───────────────────────────────────────────────────────── */
+.summary-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.summary-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.summary-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent-light);
+  letter-spacing: -0.5px;
+}
+
+.summary-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ── Section titles ──────────────────────────────────────────────────────── */
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+}
+
+/* ── Canvas ─────────────────────────────────────────────────────────────── */
+.canvas-wrap {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 8px 4px;
+}
+
+canvas { display: block; }
+
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+.empty-state {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px;
+  color: var(--text-dimmed);
+}
+
+.empty-state.visible { display: flex; }
+.empty-icon { font-size: 32px; }
+.empty-state p { font-size: 13px; text-align: center; }
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.popup-footer {
+  border-top: 1px solid var(--border);
+  padding: 10px 16px;
+  background: var(--surface);
+  text-align: center;
+}
+
+.footer-link {
+  background: none;
+  border: none;
+  color: var(--accent-light);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.footer-link:hover { color: #fff; }
